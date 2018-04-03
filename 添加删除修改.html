@@ -6,9 +6,7 @@
 <link rel="stylesheet" type="text/css" href="ex_2_style/css.css" />
 <script type="text/javascript">
 	window.onload=function(){
-		var allA = document.getElementsByTagName("a");
-		for (var i=0 ; i<allA.length;i++){
-			allA[i].onclick=function(){
+		var delA=function(){
 				//这个this特别注意一下
 				var tr=this.parentNode.parentNode;
 				//var name=tr.getElementsByTagName("td")[0].innerHITM;
@@ -16,13 +14,34 @@
 				if(confirm("您确定要删除"+name+"员工吗？")){
 					tr.parentNode.removeChild(tr);
 				};
-				
-				
-				
-				
-				return false;
+					return false;
 			};
+		var allA = document.getElementsByTagName("a");
+		for (var i=0 ; i<allA.length;i++){
+			allA[i].onclick=delA;
 		};
+		
+		
+		var addEmpButton=document.getElementById("addEmpButton");
+		addEmpButton.onclick=function(){
+			var name=document.getElementById("empName").value;
+			var email=document.getElementById("email").value;
+			var salary=document.getElementById("salary").value;
+			var employeeTable=document.getElementById("employeeTable");
+			var tr=document.createElement("tr");
+			tr.innerHTML="<td>"+name+"</td>"+
+						 "<td>"+email+"</td>"+
+						 "<td>"+salary+"</td>"+
+						 "<td><a href='javascript:;'>Delete</a></td>";
+			var a=tr.getElementsByTagName("a")[0];
+			a.onclick=delA;
+			var tboby=document.getElementsByTagName("tbody")[0];
+			tboby.appendChild(tr);
+		};
+		
+		
+		
+		
 	};
 
 	
@@ -82,7 +101,7 @@
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
-					<button id="addEmpButton" value="abc">
+					<button id="addEmpButton">
 						Submit
 					</button>
 				</td>
